@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {      
 	
-    @Value("${botRPANmc.swagger2.basePackage}")
+    @Value("${station.controller.swagger2.basePackage}")
 	private String basePackage;
     @Value("${application.version}")
 	private String version;
