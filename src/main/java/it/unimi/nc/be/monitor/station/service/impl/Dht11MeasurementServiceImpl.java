@@ -1,6 +1,7 @@
 package it.unimi.nc.be.monitor.station.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -53,9 +54,13 @@ public class Dht11MeasurementServiceImpl implements Dht11MeasurementService {
 		try {
 			PageRequest pageable = PageRequest.of(0, 100, Direction.DESC, "dtCreation");
 			Page<Dht11Measurement> entities = dht11MeasurementRepository.findAll(pageable);
-			List<Dht11Measurement> pageContent = entities.getContent();
-			Collections.reverse(pageContent);
-			return pageContent;
+			List<Dht11Measurement> pageContent = entities.getContent();		
+			List<Dht11Measurement> reveresedList = new ArrayList<>();
+			pageContent.forEach(e -> {
+				reveresedList.add(0, e);
+			});
+			
+			return reveresedList;
 		} catch (Exception e) {
 			StringBuilder errMsg = new StringBuilder("failed to retrieve dht11 measurement from db. Err: " + e.getMessage());
 			logger.info(errMsg.toString());
