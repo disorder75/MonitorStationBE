@@ -51,7 +51,7 @@ public class Dht11MeasurementServiceImpl implements Dht11MeasurementService {
 	public List<Dht11Measurement> findAll() throws SQLException {
 
 		try {
-			PageRequest pageable = PageRequest.of(0, 100, Direction.DESC, "DT_CREATION");
+			PageRequest pageable = PageRequest.of(0, 100, Direction.DESC, "dtCreation");
 			Page<Dht11Measurement> entities = dht11MeasurementRepository.findAll(pageable);
 			List<Dht11Measurement> pageContent = entities.getContent();
 			Collections.reverse(pageContent);
