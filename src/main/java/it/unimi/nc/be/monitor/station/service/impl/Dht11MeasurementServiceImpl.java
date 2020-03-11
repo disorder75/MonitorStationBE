@@ -1,15 +1,20 @@
 package it.unimi.nc.be.monitor.station.service.impl;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import it.unimi.nc.be.monitor.station.domain.Dht11Measurement;
@@ -46,8 +51,11 @@ public class Dht11MeasurementServiceImpl implements Dht11MeasurementService {
 	public List<Dht11Measurement> findAll() throws SQLException {
 
 		try {
-			List<Dht11Measurement> entities = dht11MeasurementRepository.findAll();	
-			return entities;
+			PageRequest pageable = PageRequest.of(0, 100, Direction.DESC, "DT_CREATION");
+			Page<Dht11Measurement> entities = dht11MeasurementRepository.findAll(pageable);
+			List<Dht11Measurement> pageContent = entities.getContent();
+			Collections.reverse(pageContent);
+			return pageContent;
 		} catch (Exception e) {
 			StringBuilder errMsg = new StringBuilder("failed to retrieve dht11 measurement from db. Err: " + e.getMessage());
 			logger.info(errMsg.toString());
