@@ -27,8 +27,8 @@ public class Dht11Dto {
 					@Length(min = 0, max = 128) String date) {
 		super();
 		this.macDeviceId = macDeviceId;
-		this.temperature = temperature;
-		this.humidityRel = humidityRel;
+		this.temperature = temperature.trim();
+		this.humidityRel = humidityRel.trim();
 		this.date = date;
 	}
 

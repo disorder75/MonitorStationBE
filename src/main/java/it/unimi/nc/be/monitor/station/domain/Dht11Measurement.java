@@ -49,8 +49,8 @@ public class Dht11Measurement implements Serializable {
 							@Length(min = 0, max = 128) Date dtCreation) {
 		super();
 		this.macDeviceId = macDeviceId;
-		this.temperature = temperature;
-		this.humidityRel = humidityRel;
+		this.temperature = temperature.trim();
+		this.humidityRel = humidityRel.trim();
 		this.dtCreation = dtCreation;
 	}
 
